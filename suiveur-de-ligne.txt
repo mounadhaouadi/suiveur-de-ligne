@@ -1,0 +1,211 @@
+int irReadings[5];
+//declaration des variables
+int sensor1 = 30; 
+int sensor2 = 28;
+int sensor3 = 26;
+int sensor4 = 24 ;
+int sensor5 = 22;
+
+
+int motor1Forward = 0;
+int motor1Backward = 1;
+int motor1pwmPin = 9;
+int motor2Forward = 2;
+int motor2Backward = 3;
+int motor2pwmPin = 10;
+
+
+int motor2Speed ; 
+int motor1Speed ; 
+
+
+
+
+
+void setup() {
+//la void setup() est généralement utilisé pour la déclaration des différentes pins et leurs mode de fonctionnement IN/OUT
+
+
+
+  //Declaration des capteurs comme des "inputs"
+ 
+  pinMode(sensor1, INPUT);
+  pinMode(sensor2, INPUT);
+  pinMode(sensor3, INPUT);
+  pinMode(sensor4, INPUT);
+  pinMode(sensor5, INPUT);
+  //Declaration des pins responseables au imouvement des moteurs comme des "output"
+  pinMode(motor1Forward, OUTPUT);
+  pinMode(motor1Backward, OUTPUT);
+  pinMode(motor1pwmPin, OUTPUT);
+  pinMode(motor2Forward, OUTPUT);
+  pinMode(motor2Backward, OUTPUT);
+  pinMode(motor2pwmPin, OUTPUT);
+  Serial.begin(9600);
+
+   
+
+}
+
+void loop() {
+  //le void loop est ulisée généralement pour détailer le fonctionnement de système "ROBOT"
+ 
+   int irReading1 = !digitalRead(sensor1);//lire la valeur issue de sensor1 et l'enregistrer dans la variable irReading1
+   int irReading2 = digitalRead(sensor2);//lire la valeur issue de sensor2 et l'enregistrer dans la variable irReading2
+   int irReading3 = digitalRead(sensor3);//lire la valeur issue de sensor3 et l'enregistrer dans la variable irReading3
+   int irReading4 = digitalRead(sensor4);//lire la valeur issue de sensor4 et l'enregistrer dans la variable irReading4
+   int irReading5 = !digitalRead(sensor5);//lire la valeur issue de sensor5 et l'enregistrer dans la variable irReading5
+  if ((irReading1 == 0) && (irReading2== 1) && (irReading3 == 1) && (irReading4 == 1) && (irReading5 == 1)) {
+    right();
+  } else if ((irReading1 == 0) && (irReading2 == 1) && (irReading3 == 1) && (irReading4 == 0) && (irReading5 == 1)) {
+    right();
+     
+  }
+  else if ((irReading1 == 0) && (irReading2 == 1) && (irReading3 == 0) && (irReading4 == 0) && (irReading5 == 1)) {
+    right();
+     
+  }
+  else if ((irReading1 == 0) && (irReading2 == 1) && (irReading3 == 0) && (irReading4 == 0) && (irReading5 == 0)) {
+  left();
+  } else if ((irReading1 ==1) && (irReading2 == 1) && (irReading3 == 1) && (irReading4 == 0) && (irReading5 == 0)) {
+  left();
+  }
+  else if ((irReading1 == 0) && (irReading2 == 1) && (irReading3 == 1) && (irReading4 == 0) && (irReading5 == 0)) {
+    right();
+  }
+
+  else if ((irReading1 == 0) && (irReading2 == 1) && (irReading3 == 0) && (irReading4 == 1) && (irReading5 == 0)) {
+    avant();
+  }
+
+ else if ((irReading1 == 1) && (irReading2 == 0) && (irReading3 == 0) && (irReading4 == 0) && (irReading5 == 1)) {
+    avant();
+  }
+
+       //blanc
+
+   else if ((irReading1 == 0) && (irReading2 == 1) && (irReading3 == 1) && (irReading4 == 1) && (irReading5 == 0)) {
+    right();
+  }
+   else if ((irReading1 == 1) && (irReading2 == 0) && (irReading3 == 1) && (irReading4 == 0) && (irReading5 == 1)) {
+    avantb();
+  }
+    else if ((irReading1 == 1) && (irReading2 == 1) && (irReading3 == 1) && (irReading4 == 1) && (irReading5 == 1)) {
+    rot();
+  }
+   else if ((irReading1 == 1) && (irReading2 == 1) && (irReading3 == 1) && (irReading4 ==0) && (irReading5 == 1)) {
+    rot();}
+     else if ((irReading1 == 1) && (irReading2 == 0) && (irReading3 == 1) && (irReading4 == 1) && (irReading5 == 1)) {
+    rot();}
+   
+   
+ 
+  
+  
+   else if ((irReading1 == 1) && (irReading2 == 1) && (irReading3 == 1) && (irReading4 == 1) && (irReading5 == 0)) {
+    left();
+  } else if ((irReading1 == 1) && (irReading2 == 0) && (irReading3 == 0) && (irReading4 == 1) && (irReading5 == 0)) {
+    left();
+    
+  }
+  else if ((irReading1 == 1) && (irReading2 == 0) && (irReading3 == 1) && (irReading4 == 1) && (irReading5 == 0)) {
+    left();
+    
+  }
+  else if ((irReading1 == 0) && (irReading2 == 0) && (irReading3 == 1) && (irReading4 == 1) && (irReading5 == 0)) {
+    left();
+  }
+    else if ((irReading1 == 0) && (irReading2 == 0) && (irReading3 == 0) && (irReading4 == 1) && (irReading5 == 0)) {
+    left();
+  }else if ((irReading1 == 1) && (irReading2 == 0) && (irReading3 ==0) && (irReading4 == 1) && (irReading5 == 0)) {
+    left();
+  
+    } else if ((irReading1 == 1) && (irReading2 ==1) && (irReading3 == 1) && (irReading4 == 0) && (irReading5 == 0)) {
+    left();
+    
+  } else if ((irReading1 == 1) && (irReading2 ==1) && (irReading3 == 1) && (irReading4 == 0) && (irReading5 == 0)) {
+    left();}
+    else if ((irReading1 == 1) && (irReading2 ==1) && (irReading3 == 0) && (irReading4 == 0) && (irReading5 == 1)) {
+    left();}
+     else if ((irReading1 == 1) && (irReading2 ==1) && (irReading3 == 1) && (irReading4 == 0) && (irReading5 == 1)) {
+    left();}
+    
+    else if ((irReading1 == 1)  && (irReading3 == 0) && (irReading4 == 1) && (irReading5 == 0)) {
+    analogWrite(motor2pwmPin, 60);
+    analogWrite(motor1pwmPin, 4);
+    digitalWrite(motor2Forward, HIGH);
+    digitalWrite(motor2Backward, LOW);
+    digitalWrite(motor1Forward, HIGH);
+    digitalWrite(motor1Backward, LOW);
+  
+
+  }
+  
+    
+  Serial.print(irReading1);
+  Serial.print(irReading2);
+  Serial.print(irReading3);
+  Serial.print(irReading4);
+  Serial.println(irReading5);
+
+  
+
+ }
+
+  void avant(){
+    analogWrite(motor2pwmPin,50);
+    analogWrite(motor1pwmPin, 50);
+    digitalWrite(motor2Forward, HIGH);
+    digitalWrite(motor2Backward, LOW);
+    digitalWrite(motor1Forward, HIGH);
+    digitalWrite(motor1Backward, LOW);
+    
+    }
+void avantb(){
+    analogWrite(motor2pwmPin,30);
+    analogWrite(motor1pwmPin, 30);
+    digitalWrite(motor2Forward, HIGH);
+    digitalWrite(motor2Backward, LOW);
+    digitalWrite(motor1Forward, HIGH);
+    digitalWrite(motor1Backward, LOW);
+    
+    }
+ void right(){
+
+  analogWrite(motor2pwmPin,30);
+  analogWrite(motor1pwmPin, 0);
+  digitalWrite(motor2Forward, HIGH);
+  digitalWrite(motor2Backward, LOW);
+  digitalWrite(motor1Forward, LOW);
+  digitalWrite(motor1Backward, HIGH);
+  
+  } 
+
+
+
+
+
+ void rot(){
+
+  analogWrite(motor2pwmPin,35);
+  analogWrite(motor1pwmPin, 5);
+  digitalWrite(motor2Forward, HIGH);
+  digitalWrite(motor2Backward, LOW);
+  digitalWrite(motor1Forward, LOW);
+  digitalWrite(motor1Backward, HIGH);
+  
+  } 
+
+
+
+
+ void left(){
+  
+  
+  analogWrite(motor2pwmPin, 0);
+  analogWrite(motor1pwmPin, 30);
+  digitalWrite(motor2Forward, LOW);
+  digitalWrite(motor2Backward, HIGH);
+  digitalWrite(motor1Forward, HIGH);
+  digitalWrite(motor1Backward, LOW);
+  }
